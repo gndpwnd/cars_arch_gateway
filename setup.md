@@ -1,3 +1,12 @@
+cd Swarm-Squad-Ep2
+make
+
+python -m venv venv
+.\venv\Scripts\Activate.ps1
+pip install -r .\Swarm-Squad-Ep2\backend\requirements.txt
+
+python .\Swarm-Squad-Ep2\backend\scripts\run_simulation.py
+
 install docker
 install docker compose
 install python 3.12
