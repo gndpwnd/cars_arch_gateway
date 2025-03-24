@@ -1,7 +1,8 @@
 ## Fucntionality
 
 - [ ] LLM
-  - [ ] [Ollama](https://ollama.com/library/llama3.2:1b)
+  - [ ] [Ollama](https://github.com/ollama/ollama/blob/main/docs/linux.md)
+    - [ ] [basic model](https://ollama.com/library/llama3.2:1b)
   - [ ] [GPU Acceleration]() and [docker](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html)
 - [ ] [Data Simluation](https://github.com/Swarm-Squad/Swarm-Squad-Ep2/blob/main/backend/scripts/run_simulation.py)
 - [ ] Store llm_prompts from data sim

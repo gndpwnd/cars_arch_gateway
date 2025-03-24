@@ -1,25 +1,71 @@
-cd Swarm-Squad-Ep2
-make
+setup swarm squad
 
-python -m venv venv
-.\venv\Scripts\Activate.ps1
-pip install -r .\Swarm-Squad-Ep2\backend\requirements.txt
+
+python3 -m venv venv
+
+curl -LsSf https://astral.sh/uv/install.sh | sh
+curl -fsSL https://get.pnpm.io/install.sh | sh
+
+replace all instances of:
+
+```
+source .venv/bin/activate
+```
+
+with 
+
+```
+. .venv/bin/activate
+```
+
+inside of the makefile in swarm squad
+
+cd Swarm-Squad-Ep2
+make install
+
+exit
+
+
+
+source ./.venv/bin/activate
+make dev
+
 
 python .\Swarm-Squad-Ep2\backend\scripts\run_simulation.py
 
-install docker
-install docker compose
+
+-------------------------------------------------------------------------------------
+
+
+setup arch gateway
+
+
+install docker and compose
+
+
+sudo apt install -y docker.io docker-compose; sudo groupadd docker; sudo usermod -aG docker $USER; sudo systemctl start docker; sudo systemctl enable docker; newgrp docker
+
+
 install python 3.12
 
+sudo add-apt-repository ppa:deadsnakes/ppa -y
+sudo apt update
+sudo apt install -y python3.12 python3.12-venv python3.12-dev
+python3.12 -m venv venv-archgate
 
 
-python -m venv venv
 
-source venv/bin/activate   
+source venv-archgate/bin/activate   
 
-venv\Scripts\activate
 
-pip install archgw==0.2.3
+pip install archgw==0.2.4
+pip install --upgrade pip
+
+
+
+install basic ollama and model
+
+curl -fsSL https://ollama.com/install.sh | sh
 
 
 archgw up arch_config.yaml
