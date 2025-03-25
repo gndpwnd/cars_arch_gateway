@@ -1,16 +1,19 @@
 version: v0.1
 
-listener:
-  address: 0.0.0.0
-  port: 10000
-  message_format: huggingface
-  connect_timeout: 0.005s
+listeners:
+  egress_traffic:
+    address: 0.0.0.0
+    port: 12000
+    message_format: openai
+    timeout: 30s
 
 llm_providers:
-  - name: gpt-4o
-    access_key: $OPENAI_API_KEY
-    provider: openai
-    model: gpt-4o
+
+  - name: local-llama
+    provider_interface: openai
+    model: llama3.2:1b
+    endpoint: host.docker.internal:11434
+    default: true
 
 system_prompt: |
   You are a helpful assistant.
@@ -46,3 +49,7 @@ endpoints:
   frankfurther_api:
     endpoint: api.frankfurter.dev:443
     protocol: https
+
+tracing:
+  random_sampling: 100
+  trace_arch_internal: true

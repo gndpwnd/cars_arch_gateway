@@ -68,6 +68,9 @@ install basic ollama and model
 curl -fsSL https://ollama.com/install.sh | sh
 
 
+
+(if on windows enable developer mode)
+
 archgw up arch_config.yaml
 
 
