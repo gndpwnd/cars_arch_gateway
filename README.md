@@ -15,6 +15,8 @@
   - [ ] Acknowledge llm_prompts recieved
   - [ ] Based on prompts recieved, llm makes function calls
 
+- [ ] [Arch GW ollama use case](https://github.com/katanemo/archgw/tree/main/demos/use_cases/ollamahttps://github.com/katanemo/archgw/tree/main/demos/use_cases/ollama)
+
 
 Example Projects / References
 

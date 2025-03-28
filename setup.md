@@ -37,56 +37,77 @@ python .\Swarm-Squad-Ep2\backend\scripts\run_simulation.py
 -------------------------------------------------------------------------------------
 
 
-setup arch gateway
-
-
-install docker and compose
-
-
-sudo apt install -y docker.io docker-compose; sudo groupadd docker; sudo usermod -aG docker $USER; sudo systemctl start docker; sudo systemctl enable docker; newgrp docker
-
-
-install python 3.12
-
-sudo add-apt-repository ppa:deadsnakes/ppa -y
-sudo apt update
-sudo apt install -y python3.12 python3.12-venv python3.12-dev
-python3.12 -m venv venv-archgate
-
-
-
-source venv-archgate/bin/activate   
-
-
-pip install archgw==0.2.4
-pip install --upgrade pip
-
-
-
-install basic ollama and model
+install ollama, get 3.2:1b model, setup docker and python3.12 venv, install archgw
 
 curl -fsSL https://ollama.com/install.sh | sh
 
 
+docker pull ollama/ollama
 
-(if on windows enable developer mode)
+docker run -d --name ollama -p 11434:11434
+
+docker exec -it ollama ollama run llama3.2
+
+ollama run llama3.2:1b
+
+
+setup arch gateway
+
+
+sudo add-apt-repository ppa:deadsnakes/ppa -y
+sudo apt update
+sudo apt install -y jq python3.12 python3.12-venv python3.12-dev docker.io docker-compose; sudo groupadd docker; sudo usermod -aG docker $USER; sudo systemctl start docker; sudo systemctl enable docker; newgrp docker
+
+
+
+python3.12 -m venv venv
+source venv/bin/activate
+pip install --upgrade pip
+pip install archgw==0.2.4  
+
+
+
+-------------------------------------------------------------------------------------
+
+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
+
+
+run archgw
 
 archgw up arch_config.yaml
 
 
-curl --header 'Content-Type: application/json' \
-  --data '{"messages": [{"role": "user","content": "what is exchange rate for gbp"}]}' \
-  http://localhost:10000/v1/chat/completions | jq ".choices[0].message.content"
+run docker-compose for frontend apps
 
-curl --header 'Content-Type: application/json' \
-  --data '{"messages": [{"role": "user","content": "show me list of currencies that are supported for conversion"}]}' \
-  http://localhost:10000/v1/chat/completions | jq ".choices[0].message.content"
+docker-compose up -d
 
 
 
 
 
-curl --header 'Content-Type: application/json' \
-  --header 'x-arch-llm-provider-hint: ministral-3b' \
-  --data '{"messages": [{"role": "user","content": "What is the capital of France?"}]}' \
-  http://localhost:12000/v1/chat/completions
+ Error Error calling gateway API: x-arch-llm-provider header not set, llm gateway cannot perform routing
+
+
+if model_selector and model_selector != "":
+    headers["x-arch-llm-provider-hint"] = model_selector
+
+change to
+
+if model_selector and model_selector != "":
+          headers["x-arch-llm-provider"] = model_selector  # Correct header name
+
+
+
+Error
+Error calling gateway API: No model specified in request and couldn't determine model name from arch_config. Model name in req: None, arch_config, provider: local-llama, model: None
+
+
+
+load model from yaml config
+
+
+
+Error
+Error calling gateway API: upstream connect error or disconnect/reset before headers. reset reason: remote connection failure, transport failure reason: delayed connect error: Connection refused
+
+
